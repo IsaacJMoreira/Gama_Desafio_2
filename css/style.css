@@ -99,14 +99,16 @@ footer nav ul li  {
 }
 
 #banner-text, #banner-subtext{
-    margin-top: 15%;
+    padding-top: 15vw;
+    margin: none;
     text-align: center;
     color: #C2185B;
+    font-size: 3vw;
     z-index: 500;
-    text-shadow: black 2px 2px 5px;
+    text-shadow: #02080B 2px 2px 5px;
 }
 
-#banner-subtext{
-    margin-top: 10%;
+#banner-subtext{   
+    padding-top: 1%;
     color: white;
 }

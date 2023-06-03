@@ -72,7 +72,7 @@ const bannerPeriodo = 4000;//dita o tempo que leva para o banner transicionar de
             console.log("ERRO! O programa nunca deveria ter chegado nessa linha!!!");
         break;
     }  
-        console.log(bannerEstado);
+        console.log("Banner sendo mostrado: " + bannerEstado);
 }
 
 
@@ -80,12 +80,12 @@ function mudaOpacidade(imagem){
    document.getElementById(`imagem${imagem}`).style.opacity = "1"; //nessa imagem, a opacidade é 100%
    for(var i = 0; i < 4; i++){
         if(i !== imagem){
-            document.getElementById(`imagem${i}`).style.opacity = "0";
+            document.getElementById(`imagem${i}`).style.opacity = "0";//em todas as outras, a opacidade é 0%
         }
    }
 }
 
-var bannerLoop = setInterval(() => {//Essa função vai ser executada, chamando a animação do banner
+var bannerLoop = setInterval(() => {//Essa função vai ser executada, chamando a animação do banner constantemente
     bannerAnimation();
 }, bannerPeriodo);
 
