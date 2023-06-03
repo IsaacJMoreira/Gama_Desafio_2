@@ -11,9 +11,12 @@
 ***************************************************************************/
 
 /* CONSTANTES */
-const bannerPeriodo = 4000;
+const bannerPeriodo = 4000;//dita o tempo que leva para o banner transicionar de uma imagem para a outra
 
 /* VARIÁVEIS  */
+
+
+/* EVENTOS */
 
 
 /* SELEÇÃO DE ELEMENTOS DA DOM */
@@ -36,47 +39,42 @@ const bannerPeriodo = 4000;
 /* FUNCIONALIDADE EXTRA - BANNER ROTATIVO */
 // Como é extra, vou fazer fade in das imagens, ok?
 
+/***************************************************
+
+                 ISAAC ESTEVE AQUI °-°
+                    
+****************************************************/
+
 //note que essa funcionalidade só dá certo se tivermos 4 imagens no banner.
 //Poderia escrever uma função mais universal, mas... \_°-°_/
-var bannerEstado = 0;
-async function bannerAnimation(){  
-
-       
-
-        await SWITCH();
+ 
+ var bannerEstado = 0;
+ function bannerAnimation(){ 
+    switch (bannerEstado){//cria uma pequena máquina de estados para constantemente mudar a imagem do banner
+        case 0:
+            mudaOpacidade(bannerEstado);
+            bannerEstado = 1;
+            break;
+        case 1:
+            mudaOpacidade(bannerEstado);
+            bannerEstado = 2;
+            break;
+        case 2:
+            mudaOpacidade(bannerEstado);   
+            bannerEstado = 3       
+            break;
+        case 3:
+            mudaOpacidade(bannerEstado);
+            bannerEstado = 0;
+            break;
+        default:
+            bannerEstado = 0;
+            console.log("ERRO! O programa nunca deveria ter chegado nessa linha!!!");
+        break;
+    }  
         console.log(bannerEstado);
-        
 }
 
-function SWITCH() {
-    return new Promise(resolve => {
-        setTimeout(() => {
-            switch (bannerEstado){//cria uma pequena máquina de estados para constantemente mudar a imagem do banner
-                case 0:
-                    mudaOpacidade(bannerEstado);
-                    bannerEstado = 1;
-                    break;
-                case 1:
-                    mudaOpacidade(bannerEstado);
-                    bannerEstado = 2;
-                    break;
-                case 2:
-                    mudaOpacidade(bannerEstado);   
-                    bannerEstado = 3       
-                    break;
-                case 3:
-                    mudaOpacidade(bannerEstado);
-                    bannerEstado = 0;
-                    break;
-                default:
-                    bannerEstado = 0;
-                    console.log("rodei o defalut!");
-                break;
-            }  
-        }, 500);
-        resolve();
-    })
-}
 
 function mudaOpacidade(imagem){
    document.getElementById(`imagem${imagem}`).style.opacity = "1"; //nessa imagem, a opacidade é 100%
@@ -87,11 +85,8 @@ function mudaOpacidade(imagem){
    }
 }
 
-var bannerLoop = setInterval(() => {
+var bannerLoop = setInterval(() => {//Essa função vai ser executada, chamando a animação do banner
     bannerAnimation();
 }, bannerPeriodo);
 
 
-window.onload = ()=>{
-    bannerAnimation();
-}

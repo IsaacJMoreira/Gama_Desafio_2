@@ -53,6 +53,9 @@ footer nav ul li  {
 /******************************
 *   PARTE EXTRA DO DESAFIO    *    
 *******************************/
+/******************************
+    Isaac esteve aqui °-°
+*******************************/
 .main-banner{
     margin: 0 auto;
     width: 100vw;
@@ -85,7 +88,7 @@ footer nav ul li  {
 .main-banner #imagem2{
     background-image: url("../img/banner2.jpg");
     background-size: cover;
-    background-position: bottom;
+    background-position: center;
     background-repeat: no-repeat;
 }
 .main-banner #imagem3{
@@ -93,4 +96,17 @@ footer nav ul li  {
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
+}
+
+#banner-text, #banner-subtext{
+    margin-top: 15%;
+    text-align: center;
+    color: #C2185B;
+    z-index: 500;
+    text-shadow: black 2px 2px 5px;
+}
+
+#banner-subtext{
+    margin-top: 10%;
+    color: white;
 }
