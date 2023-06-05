@@ -89,4 +89,4 @@ var bannerLoop = setInterval(() => {//Essa função vai ser executada, chamando 
     bannerAnimation();
 }, bannerPeriodo);
 
-
+let Isaac;
