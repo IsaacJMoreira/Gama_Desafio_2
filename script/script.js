@@ -4,8 +4,8 @@
  *                      >>>>> EQUIPE 3 <<<<<
  *                      MEMBROS:
  *                              > ISAAC J MOREIRA
- *                              >
- *                              >
+ *                              > WEBERTON RODRIGUES DA SILVA
+ *                              > 
  * 
  *                      DATA: 
 ***************************************************************************/
