@@ -90,3 +90,4 @@ var bannerLoop = setInterval(() => {//Essa função vai ser executada, chamando 
 }, bannerPeriodo);
 
 
+let weberton; 
