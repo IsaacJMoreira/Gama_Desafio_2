@@ -49,7 +49,7 @@ function createCard(element){
     <article class="evento card p-5 m-3">
                     <h2>${element.name} - ${element.scheduled}</h2>
                     <h4>${element.attractions}</h4>
-                    <p>${element.discription}</p>
+                    <p>${element.description}</p>
                     <a href="$" class="btn btn-primary">reservar ingresso</a>
                 </article>
 
