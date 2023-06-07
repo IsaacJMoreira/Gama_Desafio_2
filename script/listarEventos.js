@@ -4,7 +4,7 @@ axios.defaults.headers.common['X-Auth-Token'] =
 
 const baseURL = "https://soundgarden-api.vercel.app";
 
-
+https://soundgarden-api.vercel.app
 
 window.onload = function() {
     console.log("rodei onload");
@@ -16,12 +16,13 @@ window.onload = function() {
 //FUNCTION THAT UPDATES THE EVENTS TO THE DOM
 function loadEvents(){
     let eventos;
-    //AXIOS gets all the events from the api
+    //AXIOS gets all the events from the 
     axios({//GET is blocked in the browser due to CORS policy °~°
         method: "get",
-        url: `${baseURL}//events`,
-        params:{
-            _limit: 5
+        url: `https://soundgarden-api.vercel.app//events`       
+    },  {
+        headers: {
+            'Content-Type': 'application/json'
         }
     })
     .then(response => {
@@ -29,7 +30,6 @@ function loadEvents(){
         console.log(response);//debug only
     })//logs to the console. Can be a success message
     .catch(error => console.log(error)); 
-
 
     //HERE, THE CARDS ARE ACTUALY GENERATED WITH THE REAL DATA
    for (let i = 0; i < eventos.length; i++ ){
