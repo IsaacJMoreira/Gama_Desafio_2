@@ -56,7 +56,8 @@ function loadEvents(){
         eventos = response;
         console.log("DADOS RETORNADOS: ", response);//debug only
          //HERE, THE CARDS ARE ACTUALY GENERATED WITH THE REAL DATA
-        for (let i = 0; i < eventos.data.length; i++ ){
+         let maxCards = eventos.data.length >= 3? 3 : eventos.data.length;//mostra no máximo 3 cards no index
+        for (let i = 0; i < maxCards; i++ ){
             createCard(eventos.data[i]);
        }
     })//logs to the console. Can be a success message
