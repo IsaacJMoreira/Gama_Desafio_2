@@ -32,22 +32,26 @@ function getElements(){
         "number_tickets": lotacao
     });
     //debug only
+    //https://www.youtube.com/watch?v=UBPg5ftCMv8
 
     alert("Tem certeza que deseja enviar evento para o Banco de Dados?");//debug only
-    axios({//POST is blocked in the browser due to CORS policy °~°
-        method: "post",
-        url: `${baseURL}/events`,
-        data:{
+    axios.post(`${baseURL}/events`, {       
             "name": nome,
             "poster": '',
             "attractions": [atracoes],
             "description": descricao,
             "scheduled": data,
             "number_tickets": lotacao
+        }, {
+            headers: {
+                'Content-Type': 'application/json',
+                'Access-Control-Allow-Origin': '*',
+                'Access-Control-Allow-Methods': 'PUT, POST, PATCH. DELETE, GET',
+            }
         }
-    })
+    )
     .then(response => console.log(response))//logs to the console. Can be a success message
-    .catch(error => console.log(error));   
+    .catch(error => console.log("error log: ", error));   
 }
 
 //Event handler
