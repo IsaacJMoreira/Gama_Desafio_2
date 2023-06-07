@@ -4,6 +4,12 @@
                     
 ****************************************************/
 
+/*FOR SOME BLACK MAGIC, THIS IS REQUIRED*/
+axios.defaults.headers.common['X-Auth-Token'] =
+  'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c';
+
+
+
 /* IMPLEMENTAÇÃO DO MÉTODO POST */
 const baseURL = "https://soundgarden-api.vercel.app";
 
@@ -30,7 +36,7 @@ function getElements(){
     alert("Tem certeza que deseja enviar evento para o Banco de Dados?");//debug only
     axios({//POST is blocked in the browser due to CORS policy °~°
         method: "post",
-        url: `${baseURL}//posts`,
+        url: `${baseURL}//events`,
         data:{
             "name": nome,
             "poster": '',
