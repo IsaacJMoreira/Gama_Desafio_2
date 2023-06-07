@@ -36,7 +36,7 @@ function getElements(){
     alert("Tem certeza que deseja enviar evento para o Banco de Dados?");//debug only
     axios({//POST is blocked in the browser due to CORS policy °~°
         method: "post",
-        url: `${baseURL}//events`,
+        url: `${baseURL}/events`,
         data:{
             "name": nome,
             "poster": '',
