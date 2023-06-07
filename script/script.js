@@ -10,6 +10,8 @@
  *                      DATA: 
 ***************************************************************************/
 
+const baseURL = "https://soundgarden-api.vercel.app";
+let get = `${baseURL}//events/${id}`;
 /* CONSTANTES */
 const bannerPeriodo = 4000;//dita o tempo que leva para o banner transicionar de uma imagem para a outra
 
@@ -21,12 +23,7 @@ const bannerPeriodo = 4000;//dita o tempo que leva para o banner transicionar de
 
 /* SELEÇÃO DE ELEMENTOS DA DOM */
 /* KEYWORDS: DOM, ELEMENTBYID */
-
-
-
-
-/* IMPLEMENTAÇÃO DO MÉTODO POST */
-/* KEYWORDS: GET*/
+  
 
 /* IMPLEMENTAÇÃO DO MÉTODO GET */
 
@@ -76,7 +73,7 @@ const bannerPeriodo = 4000;//dita o tempo que leva para o banner transicionar de
 }
 
 
-function mudaOpacidade(imagem){
+function mudaOpacidade(imagem){https://www.hackerrank.com/
    document.getElementById(`imagem${imagem}`).style.opacity = "1"; //nessa imagem, a opacidade é 100%
    for(var i = 0; i < 4; i++){
         if(i !== imagem){
@@ -88,5 +85,3 @@ function mudaOpacidade(imagem){
 var bannerLoop = setInterval(() => {//Essa função vai ser executada, chamando a animação do banner constantemente
     bannerAnimation();
 }, bannerPeriodo);
-
-let Isaac;
