@@ -11,7 +11,7 @@
 ***************************************************************************/
 
 const baseURL = "https://soundgarden-api.vercel.app";
-let get = `${baseURL}//events/${id}`;
+
 /* CONSTANTES */
 const bannerPeriodo = 4000;//dita o tempo que leva para o banner transicionar de uma imagem para a outra
 
