@@ -1,8 +1,10 @@
+
 /***************************************************
 
                  ISAAC ESTEVE AQUI °-°
                     
 ****************************************************/
+
 
 axios.defaults.headers.common['X-Auth-Token'] =
   'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c';
@@ -37,10 +39,7 @@ function loadEvents(){
             createCard(eventos.data[i]);
        }
     })//logs to the console. Can be a success message
-    .catch(error => console.log(error)); 
-
-   
-   
+    .catch(error => console.log(error));    
 };
 
 
@@ -53,5 +52,8 @@ function createCard(element){
                     <p>${element.discription}</p>
                     <a href="$" class="btn btn-primary">reservar ingresso</a>
                 </article>
+
     `);
 }
+
+
