@@ -4,62 +4,49 @@
                     
 ****************************************************/
 
-/*FOR SOME BLACK MAGIC, THIS IS REQUIRED*/
+
 axios.defaults.headers.common['X-Auth-Token'] =
   'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c';
 
 
-
-/* IMPLEMENTAÇÃO DO MÉTODO POST */
 const baseURL = "https://soundgarden-api.vercel.app";
 
-//FUNCTION THAT GETS THE VALUES SUBMITER BY THE ADMIN
-function getElements(){
-    let nome = document.getElementById("nome").value;
-    let atracoes = document.getElementById("atracoes").value;
-    let descricao = document.getElementById("descricao").value;
-    let data = document.getElementById("data").value;
-    let lotacao = document.getElementById("lotacao").value;
+window.onload = function() {
+    console.log("rodei onload");//debug only
+    loadEvents();
+  };
 
-    //debug only
-    console.log("peguei os valores");
-    console.log({
-        "name": nome,
-        "poster": '',
-        "attractions": [atracoes],
-        "description": descricao,
-        "scheduled": data,
-        "number_tickets": lotacao
-    });
-    //debug only
-    //https://www.youtube.com/watch?v=UBPg5ftCMv8
-
-    alert("Tem certeza que deseja enviar evento para o Banco de Dados?");//debug only
-    axios.post(`${baseURL}/events`, {       
-            "name": nome,
-            "poster": '',
-            "attractions": [atracoes],
-            "description": descricao,
-            "scheduled": data,
-            "number_tickets": lotacao
-        }, {
-            headers: {
-                'Content-Type': 'application/json',
-                'Access-Control-Allow-Origin': '*',
-                'Access-Control-Allow-Methods': 'PUT, POST, PATCH. DELETE, GET',
-            }
+//FUNCTION THAT UPDATES THE EVENTS TO THE DOM
+function loadEvents(){
+    let ID = window.location.search.substring(4);//pega a ID do evento a sex excluido
+    console.log(ID);
+    let evento;
+    //AXIOS gets all the events from the DB
+    axios({
+        method: "get",
+        url: `${baseURL}/events/${ID}`       
+    },  {
+        headers: {
+            'Content-Type': 'application/json'
         }
-    )
-    .then(response => console.log(response))//logs to the console. Can be a success message
-    .catch(error => console.log("error log: ", error));   
+    })
+    .then(response => {
+        evento = response;
+        console.log("DADOS RETORNADOS: ", response);//debug only
+         //HERE, THE CARDS ARE ACTUALY GENERATED WITH THE REAL DATA
+         fillForm(evento);
+    })//logs to the console. Can be a success message
+    .catch(error => console.log(error));   
+    
+    
+    
+};
+
+
+function fillForm(evento){
+    document.querySelector('#nome').value = evento.data.name;
+    document.querySelector('#atracoes').value =  evento.data.attractions.join(', ');
+    document.querySelector('#descricao').value = evento.data.description;
+    document.querySelector('#data').value = new Date(evento.data.scheduled).toLocaleString("pt-br");
+    document.querySelector('#lotacao').value = evento.data.number_tickets;
 }
-
-//Event handler
-document.getElementById("postEvent").addEventListener("submit", (event)=>{
-    event.preventDefault();
-    getElements();
-});
-
-//THIS ONE IS MOSTLY DONE.
-
-
