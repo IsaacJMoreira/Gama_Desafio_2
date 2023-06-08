@@ -83,6 +83,7 @@ async function createElementsFromEvents(data) { //Função que cria os todos os 
         thirdAnchor.classList.add('btn');
         thirdAnchor.classList.add('btn-danger');
         thirdAnchor.href = 'excluir-evento.html?id=' + event._id;
+        
 
         fourthTdElement.append(firstAnchor, secondAnchor, thirdAnchor);
 
