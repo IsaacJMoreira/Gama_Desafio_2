@@ -22,12 +22,6 @@ axios.defaults.headers.common['X-Auth-Token'] =
 const baseURL = "https://soundgarden-api.vercel.app";
 
 
-
-/* VARIÁVEIS  */
-
-
-/* EVENTOS */
-
 /***************************************************
 
                  ISAAC ESTEVE AQUI °-°
@@ -56,7 +50,7 @@ function loadEvents(){
         eventos = response;
         console.log("DADOS RETORNADOS: ", response);//debug only
          //HERE, THE CARDS ARE ACTUALY GENERATED WITH THE REAL DATA
-         let maxCards = eventos.data.length >= 3? 3 : eventos.data.length;//mostra no máximo 3 cards no index
+         let maxCards = (eventos.data.length > 3)? 3 : eventos.data.length;//mostra no máximo 3 cards no index
         for (let i = 0; i < maxCards; i++ ){
             createCard(eventos.data[i]);
        }
@@ -72,7 +66,7 @@ function createCard(element){
     <article class="evento card p-5 m-3">
                     <h2>${element.name} - ${element.scheduled}</h2>
                     <h4>${element.attractions}</h4>
-                    <p>${element.discription}</p>
+                    <p>${element.description}</p>
                     <a href="$" class="btn btn-primary">reservar ingresso</a>
                 </article>
     `);

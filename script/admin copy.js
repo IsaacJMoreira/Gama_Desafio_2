@@ -36,7 +36,7 @@ function loadEvents(){
         console.log("DADOS RETORNADOS: ", response);//debug only
          //HERE, THE CARDS ARE ACTUALY GENERATED WITH THE REAL DATA
         for (let i = 0; i < eventos.data.length; i++ ){
-            createCard(eventos.data[i]);
+            createCard(eventos.data[i]. i);
        }
     })//logs to the console. Can be a success message
     .catch(error => console.log(error));    
@@ -44,15 +44,18 @@ function loadEvents(){
 
 
 //FUNCTION THAT CREATES THE CARDS
-function createCard(element){
-    document.getElementById('divEventos').insertAdjacentHTML("beforeEnd", `
-    <article class="evento card p-5 m-3">
-                    <h2>${element.name} - ${element.scheduled}</h2>
-                    <h4>${element.attractions}</h4>
-                    <p>${element.description}</p>
-                    <a href="$" class="btn btn-primary">reservar ingresso</a>
-                </article>
+function createCard(element, i){
+    document.getElementById('listaAdmin').insertAdjacentHTML("beforeEnd", `
+    <tr>
+    <th scope="row">${i+1}</th>
+    <td>${element.scheduled}</td>
+    <td>${element.name}</td>
+    <td>${element.attractions}</td>
+    <td>
+        <a href="reservas.html" class="btn btn-dark">ver reservas</a>
+        <a href="editar.html" class="btn btn-secondary">editar</a>
+        <a href="editar.html" class="btn btn-danger">excluir</a>
+    </td>
+    </tr>
     `);
 }
-
-

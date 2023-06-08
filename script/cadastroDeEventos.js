@@ -1,65 +1,38 @@
-/***************************************************
+const btnSubmit = document.querySelector(".btn-primary");
 
-                 ISAAC ESTEVE AQUI °-°
-                    
-****************************************************/
-
-/*FOR SOME BLACK MAGIC, THIS IS REQUIRED*/
-axios.defaults.headers.common['X-Auth-Token'] =
-  'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c';
+btnSubmit.addEventListener("click", () => cadastrarEvento());
 
 
+function fazPost(url, corpo) {
+    fetch(url, {
+        method: 'POST',
+        headers: { 'Content-type': "application/json", },
+        body: JSON.stringify(corpo),
+    })
 
-/* IMPLEMENTAÇÃO DO MÉTODO POST */
-const baseURL = "https://soundgarden-api.vercel.app";
-
-//FUNCTION THAT GETS THE VALUES SUBMITER BY THE ADMIN
-function getElements(){
-    let nome = document.getElementById("nome").value;
-    let atracoes = document.getElementById("atracoes").value;
-    let descricao = document.getElementById("descricao").value;
-    let data = document.getElementById("data").value;
-    let lotacao = document.getElementById("lotacao").value;
-
-    //debug only
-    console.log("peguei os valores");
-    console.log({
-        "name": nome,
-        "poster": '',
-        "attractions": [atracoes],
-        "description": descricao,
-        "scheduled": data,
-        "number_tickets": lotacao
-    });
-    //debug only
-    //https://www.youtube.com/watch?v=UBPg5ftCMv8
-
-    alert("Tem certeza que deseja enviar evento para o Banco de Dados?");//debug only
-    axios.post(`${baseURL}/events`, {       
-            "name": nome,
-            "poster": '',
-            "attractions": [atracoes],
-            "description": descricao,
-            "scheduled": data,
-            "number_tickets": lotacao
-        }, {
-            headers: {
-                'Content-Type': 'application/json',
-                'Access-Control-Allow-Origin': '*',
-                'Access-Control-Allow-Methods': 'PUT, POST, PATCH. DELETE, GET',
-            }
-        }
-    )
-    .then(response => console.log(response))//logs to the console. Can be a success message
-    .catch(error => console.log("error log: ", error));   
+        .then(() => console.log(JSON.stringify(corpo)))
+        .then(() => alert('Evento Cadastrado com Sucesso'))
+        .then(() => window.location.href = "admin.html")
+        .catch((error) => alert('Não foi possível realizar o cadastro, tente novamente'));
 }
 
-//Event handler
-document.getElementById("postEvent").addEventListener("submit", (event)=>{
-    event.preventDefault();
-    getElements();
-});
 
-//THIS ONE IS MOSTLY DONE.
-
-
+function cadastrarEvento() {
+    event.preventDefault()
+    const url = "https://soundgarden-api.vercel.app/events";
+    const nameSelector = document.querySelector('#nome').value;
+    const attractionsSelector = document.querySelector('#atracoes').value.split(", ");
+    const descriptionSelector = document.querySelector('#descricao').value;
+    const dateSelector = document.querySelector('#data').value;
+    const capacitySelector = document.querySelector('#lotacao').value;
+    corpo =
+    {
+        "name": nameSelector,
+        "poster": "https://i.imgur.com/fQHuZuv.png",
+        "attractions": attractionsSelector,
+        "description": descriptionSelector,
+        "scheduled": dateSelector,
+        "number_tickets": capacitySelector
+    }
+    fazPost(url, corpo);
+}
