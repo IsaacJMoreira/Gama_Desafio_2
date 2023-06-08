@@ -1,7 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Questrial&display=swap');
 body{
     font-family: 'Questrial', sans-serif;
-    overflow-x: hidden;
 }
 
 .img-responsive {
@@ -49,6 +48,7 @@ footer nav ul{
 footer nav ul li  {
     padding: 10px;
 }
+
 
 /******************************
 *   PARTE EXTRA DO DESAFIO    *    
