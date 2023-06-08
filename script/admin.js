@@ -1,61 +1,138 @@
+async function getEvents() { // Faz requisição na Api, para preencher o painel com os eventos
 
-/***************************************************
+    try {
+        const response = await fetch('https://soundgarden-api.vercel.app/events')
 
-                 ISAAC ESTEVE AQUI °-°
-                    
-****************************************************/
+        const data = await response.json();
+
+        createElementsFromEvents(data); // Função que cria os elementos e botões a partir da requisição
+
+        return data;
+
+    } catch (error) {
+        console.error(error)
+    }
+}
+getEvents();
+
+async function getEventsToModal(id) {
+    //Faz uma requisicao GET com o fetch e recebe a lista de reservas em json
+    const bookingList = await fetch(`https://soundgarden-api.vercel.app/bookings/event/${id}`)
+        .then(data => data.json())
+        .catch(error => console.log(error))
+
+    //Verifica se existem reservas feitas para esse evento, caso não exista exibe uma mensagem
+    if (bookingList.length < 1) {
+        const thead = document.querySelector('#thead-modal')
+        thead.setAttribute('style', 'display:none')
+        document.querySelector('#tbody-modal').innerHTML = "Não há reservas para esse evento"
+        return;
+    } else {
+        const bookingListLength = bookingList.length
+        createListToModal(bookingList, bookingListLength);
+    }
+
+}
 
 
-axios.defaults.headers.common['X-Auth-Token'] =
-  'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c';
+async function createElementsFromEvents(data) { //Função que cria os todos os eventos na pagina
+    const tableSelector = document.querySelector('.table'); // selcionando a tabela
+    const tableBodySelector = tableSelector.childNodes[3];
+    data.forEach((event, index) => { // percorrendo todos os eventos
+        const trElement = document.createElement('tr');
 
+        const thElement = document.createElement('th');
+        thElement.setAttribute('scope', 'row');
+        thElement.innerText = index + 1;
 
-const baseURL = "https://soundgarden-api.vercel.app";
+        const firstTdElement = document.createElement('td');
+        firstTdElement.innerText = new Date(event.scheduled).toLocaleString("pt-br")
 
+        const secondTdElement = document.createElement('td');
+        secondTdElement.innerText = event.name;
 
-
-window.onload = function() {
-    console.log("rodei onload");
-    loadEvents();
-  };
-
-//FUNCTION THAT UPDATES THE EVENTS TO THE DOM
-function loadEvents(){
-    let eventos;
-    //AXIOS gets all the events from the DB
-    axios({
-        method: "get",
-        url: `${baseURL}/events`       
-    },  {
-        headers: {
-            'Content-Type': 'application/json'
+        const thirdTdElement = document.createElement('td');
+        thirdTdElement.innerText = event.attractions.join(', ');
+        console.log(window.screen.width)
+        if (window.screen.width <= 480) { // para responsividade
+            thirdTdElement.setAttribute('style', 'display:none')
         }
+
+        const fourthTdElement = document.createElement('td');
+
+        const firstAnchor = document.createElement('a'); // Botão listar evento, que abre um modal dinâmico
+        firstAnchor.innerText = "ver reservas";
+        firstAnchor.classList.add('btn');
+        firstAnchor.classList.add('btn-dark');
+        firstAnchor.setAttribute('data', event._id);
+        firstAnchor.addEventListener('click', () => {
+
+            openAndCloseModal(); // Função que permite abrir e fechar o modal
+            getEventsToModal(event._id); // Função que faz requisição para Api para receber info
+        })
+
+
+        const secondAnchor = document.createElement('a'); // Botão editar evento
+        secondAnchor.innerText = "editar";
+        secondAnchor.classList.add('btn');
+        secondAnchor.classList.add('btn-secondary');
+        secondAnchor.href = 'editar-evento.html?id=' + event._id;
+
+        const thirdAnchor = document.createElement('a'); // Botão excluir evento
+        thirdAnchor.innerText = "excluir";
+        thirdAnchor.classList.add('btn');
+        thirdAnchor.classList.add('btn-danger');
+        thirdAnchor.href = 'excluir-evento.html?id=' + event._id;
+
+        fourthTdElement.append(firstAnchor, secondAnchor, thirdAnchor);
+
+
+        trElement.append(thElement, firstTdElement, secondTdElement, thirdTdElement, fourthTdElement);
+        tableBodySelector.appendChild(trElement);
+
     })
-    .then(response => {
-        eventos = response;
-        console.log("DADOS RETORNADOS: ", response);//debug only
-         //HERE, THE CARDS ARE ACTUALY GENERATED WITH THE REAL DATA
-        for (let i = 0; i < eventos.data.length; i++ ){
-            createCard(eventos.data[i]. i);
-       }
-    })//logs to the console. Can be a success message
-    .catch(error => console.log(error));    
-};
+}
 
+async function openAndCloseModal() { // Função que abre e fecha o modal
+    const modal = document.querySelector(".myModal");
+    modal.setAttribute('style', 'display:block')
 
-//FUNCTION THAT CREATES THE CARDS
-function createCard(element, i){
-    document.getElementById('listaAdmin').insertAdjacentHTML("beforeEnd", `
-    <tr>
-    <th scope="row">${i+1}</th>
-    <td>${element.scheduled}</td>
-    <td>${element.name}</td>
-    <td>${element.attractions}</td>
-    <td>
-        <a href="reservas.html" class="btn btn-dark">ver reservas</a>
-        <a href="editar.html" class="btn btn-secondary">editar</a>
-        <a href="editar.html" class="btn btn-danger">excluir</a>
-    </td>
-    </tr>
-    `);
+    const span = document.getElementsByClassName("close")[0]; // Clicar no botão x para fechar
+    span.onclick = function () {
+        modal.style.display = "none";
+    }
+
+    window.onclick = (event) => { // Clicar fora do modal, fecha ele
+        if (event.target == modal) {
+            modal.style.display = "none";
+        }
+    }
+}
+
+async function createListToModal(data, dataLength) { //Função que cria o modal dinâmicamente
+    const thead = document.querySelector('#thead-modal')
+    thead.setAttribute('style', 'display:deafult')
+    document.querySelector('#tbody-modal').innerHTML = null
+
+    for (let index = 0; index < dataLength; index++) {
+        const dataObject = data[index]
+        const trElement = document.createElement('tr');
+
+        const thElement = document.createElement('th');
+        thElement.setAttribute('scope', 'row')
+
+        const nameTdElement = document.createElement('td');
+        nameTdElement.innerText = dataObject.owner_name;
+
+        const emailTdElement = document.createElement('td');
+        emailTdElement.innerText = dataObject.owner_email;
+
+        const ticketsTdElement = document.createElement('td');
+        ticketsTdElement.innerText = dataObject.number_tickets;
+
+        const tableBodyModalSelector = document.querySelector('#tbody-modal')
+        tableBodyModalSelector.appendChild(trElement);
+        trElement.append(thElement, nameTdElement, emailTdElement, ticketsTdElement);
+
+    }
 }
