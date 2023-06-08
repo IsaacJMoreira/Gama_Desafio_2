@@ -10,7 +10,7 @@ function criandoEvento(url , corpo){
     })
     .then(() => console.log(JSON.stringify(corpo)))
     .then(() => alert("Evendo cad com sucesso"))
-    .then(()=> window.location.href = "admin.html" )
+    //.then(()=> window.location.href = "admin.html" )
     .catch((error)=>alert("Não foi possivel cadastrar, tente novamente"))
 }
 
