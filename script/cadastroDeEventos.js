@@ -1,5 +1,4 @@
 const btnSubmit = document.querySelector(".btn-primary");
-const descriptionSelector = document.querySelector('#descricao');
 
 btnSubmit.addEventListener("click", () => cadastrarEvento());
 
@@ -14,8 +13,7 @@ function fazPost(url, corpo) {
         .then(() => console.log(JSON.stringify(corpo)))
         .then(() => alert('Evento Cadastrado com Sucesso'))
         .then(() => window.location.href = "admin.html")
-        .catch((error) => alert('Não foi possível realizar o cadastro, tente novamente'))
-
+        .catch((error) => alert('Não foi possível realizar o cadastro, tente novamente'));
 }
 
 
@@ -27,9 +25,6 @@ function cadastrarEvento() {
     const descriptionSelector = document.querySelector('#descricao').value;
     const dateSelector = document.querySelector('#data').value;
     const capacitySelector = document.querySelector('#lotacao').value;
-
-
-
     corpo =
     {
         "name": nameSelector,
