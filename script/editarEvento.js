@@ -63,10 +63,7 @@ const btnSubmit = document.querySelector(".btn-danger");
 btnSubmit.addEventListener("click", () => atualizaEvento());
 
 
-
-
-
-function atualizaEvento() {
+async function atualizaEvento() {
     event.preventDefault()
     
     const nameSelector = document.querySelector('#nome').value;
@@ -76,27 +73,22 @@ function atualizaEvento() {
     const capacitySelector = document.querySelector('#lotacao').value;
     corpo =
     {
-        "name": nameSelector,
-        "poster": "https://i.imgur.com/fQHuZuv.png",
-        "attractions": attractionsSelector,
-        "description": descriptionSelector,
-        "scheduled": dateSelector,
-        "number_tickets": capacitySelector
+        name: nameSelector,
+        poster: "https://i.imgur.com/fQHuZuv.png",
+        attractions: attractionsSelector,
+        description: descriptionSelector,
+        scheduled: dateSelector,
+        number_tickets: capacitySelector
     }
 
     let okToEdit = confirm("Tem certeza que deseja editar este evento?");
 
     if(okToEdit){
-        fetch(`${baseURL}/events/${ID}`,
-         {
-            method: 'PUT',
-            headers: { 'Content-type': "application/json", },
-            body: JSON.stringify(corpo),
-         })
-    
+       const editou =  await axios
+       .put(`${baseURL}/events/${ID}`, corpo)    
             .then(() => console.log(JSON.stringify(corpo)))
             .then(() => alert('Evento Editado com Sucesso'))
-            //.then(() => window.location.href = "admin.html")
+            .then(() => window.location.href = "admin.html")
             .catch((error) => alert('Não foi possível realizar a edição deste evento, tente novamente'));
     }    
 }
