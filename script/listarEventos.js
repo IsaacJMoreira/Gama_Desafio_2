@@ -15,7 +15,6 @@ const baseURL = "https://soundgarden-api.vercel.app";
 
 
 window.onload = function() {
-    console.log("rodei onload");
     loadEvents();
   };
 

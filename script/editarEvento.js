@@ -55,23 +55,39 @@ function fillForm(evento){
 
 //NOW LETS DEAL WITH UNFOLDING OF EVENTS THAT HAVE TO ACCOUR IN ORDER FOR THE DATA TO BE DELETED.
 
-//FIRST WE HAVE TO HANDLE THE PRESSING OF THE DELET BUTTON EVENT
-document.getElementById("excluirEvento").addEventListener("submit", (event)=>{
-    //the user has to confirm if he/she is really sure.
-    let okToDelete = confirm("Tem certeza que deseja excluir este evento permanentemente?");
-    event.preventDefault();
-    if(okToDelete){//if the user is sure
-        axios//axius will delete that event
-            .delete( `${baseURL}/events/${ID}` )
-            .then(response => {
-                evento = response;
-                console.log("deletado com sucesso", "DADOS RETORNADOS: ", response);//debug only
-                
-                })
-            .then(() => window.location.href = "admin.html")//volta pra pád=gina ADM
-            .catch(error => console.log(error));  
-    }else{
-        alert("Evento não deletado!");
+//FIRST WE HAVE TO HANDLE THE PRESSING OF THE EDIT BUTTON EVENT
+const btnSubmit = document.querySelector(".btn-danger");
+
+btnSubmit.addEventListener("click", () => atualizaEvento());
+
+
+async function atualizaEvento() {
+    event.preventDefault()
+    
+    const nameSelector = document.querySelector('#nome').value;
+    const attractionsSelector = document.querySelector('#atracoes').value.split(", ");
+    const descriptionSelector = document.querySelector('#descricao').value;
+    const dateSelector = document.querySelector('#data').value;
+    const capacitySelector = document.querySelector('#lotacao').value;
+    corpo =
+    {
+        name: nameSelector,
+        poster: "https://i.imgur.com/fQHuZuv.png",
+        attractions: attractionsSelector,
+        description: descriptionSelector,
+        scheduled: dateSelector,
+        number_tickets: capacitySelector
     }
-});
+
+    let okToEdit = confirm("Tem certeza que deseja editar este evento?");
+
+    if(okToEdit){
+       const editou =  await axios
+       .put(`${baseURL}/events/${ID}`, corpo)    
+            .then(() => console.log(JSON.stringify(corpo)))
+            .then(() => alert('Evento Editado com Sucesso'))
+            .then(() => window.location.href = "admin.html")
+            .catch((error) => alert('Não foi possível realizar a edição deste evento, tente novamente'));
+    }    
+}
 
