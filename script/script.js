@@ -4,10 +4,7 @@
  *                      >>>>> EQUIPE 3 <<<<<
  *                      MEMBROS:
  *                              > ISAAC J MOREIRA
- *                              > WEBERTON RODRIGUES DA SILVA
- *                              > MARIANA
- * 
- *                      DATA: 
+ *                              
 ***************************************************************************/
 
 
@@ -30,7 +27,6 @@ const baseURL = "https://soundgarden-api.vercel.app";
 
 
 window.onload = function() {
-    console.log("rodei onload");
     loadEvents();
   };
 
@@ -48,7 +44,6 @@ function loadEvents(){
     })
     .then(response => {
         eventos = response;
-        console.log("DADOS RETORNADOS: ", response);//debug only
          //HERE, THE CARDS ARE ACTUALY GENERATED WITH THE REAL DATA
          let maxCards = (eventos.data.length > 3)? 3 : eventos.data.length;//mostra no máximo 3 cards no index
         for (let i = 0; i < maxCards; i++ ){

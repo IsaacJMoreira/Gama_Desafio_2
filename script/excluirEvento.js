@@ -17,7 +17,6 @@ const baseURL = "https://soundgarden-api.vercel.app";
 let ID = window.location.search.substring(4);//GETS THE ID FROM THE URL °-°
 
 window.onload = function() {
-    console.log("rodei onload");//debug only
     loadEvents();
   };
 
@@ -39,8 +38,7 @@ function loadEvents(){
     })
     .then(response => {
         evento = response;
-        console.log("DADOS RETORNADOS: ", response);//debug only
-         fillForm(evento);
+        fillForm(evento);
     })
     .catch(error => console.log(error));       
 };
