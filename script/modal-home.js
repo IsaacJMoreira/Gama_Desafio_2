@@ -4,19 +4,16 @@ const modalReservarIngresso = () => {
     const botaoReservar0 = document.getElementById("botao-reservar0");
     botaoReservar0.addEventListener("click", (event) => {
         event.preventDefault()
-        console.log("BOTÃO 0");
         modal.style.display = "block";
     })
     const botaoReservar1 = document.getElementById("botao-reservar1");
     botaoReservar1.addEventListener("click", (event) => {
         event.preventDefault()
-        console.log("BOTÃO 1");
         modal.style.display = "block";
     })
     const botaoReservar2 = document.getElementById("botao-reservar2");
     botaoReservar2.addEventListener("click", (event) => {
         event.preventDefault()
-        console.log("BOTÃO 2");
         modal.style.display = "block";
     })
 
